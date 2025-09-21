@@ -1,0 +1,1 @@
+Hello! This is a terminal based version of minesweeper made using C. I will be documenting functions and their use cases in DOCUMENTATION.md. If you have any questions feel free to message me or refer there.
