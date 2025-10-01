@@ -16,7 +16,7 @@ void printGrid(int grid[GRID_HEIGHT][GRID_WIDTH]);
 int main(){
     int grid[GRID_HEIGHT][GRID_WIDTH] = {0};
     printGrid(grid);
-    
+
     return 0;
 }
 
@@ -43,6 +43,6 @@ void printGrid(int grid[GRID_HEIGHT][GRID_WIDTH]){
 }
 
 int randInt(int min, int max){
-    srand(time(NULL));
+    srand(time(NULL) * rand());
     return (rand() % max) + min; 
 }
