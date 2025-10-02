@@ -4,7 +4,12 @@
     * CHARMAP
         - CHARMAP is an array of characters which is used to map tile types to characters for printGrid() 
 # FUNCTIONS
-    * printGrid() 
-        - printGrid() takes in a grid[GRID_HEIGHT][GRID_WIDTH] and prints it out in the terminal with corresponding borders and coordinate labels
-        - printGrid() refers to CHARMAP for what characters to use for each tile type
+    * printGrid(grid) 
+        - printGrid(grid) takes in a grid[GRID_HEIGHT][GRID_WIDTH] as input and prints it out in the terminal with corresponding borders and coordinate labels
+        - printGrid(grid) refers to CHARMAP for what characters to use for each tile type
 
+    * int initGrid(grid)
+        - initGrid(grid) takes in a grid[GRID_HEIGHT][GRID_WIDTH] as input and edits the grid directly to have a set number of mines and adjust the surrounding tiles accordingly
+        * RETURN VALUES
+            - a return value of 0 means that NO problems were encountered
+            - a return value of 1 means that an ERROR has occured 
