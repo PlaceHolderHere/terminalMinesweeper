@@ -8,47 +8,33 @@
 #define GRID_HEIGHT 10
 #define GRID_WIDTH 10
 #define NUM_MINES 15
-static const char CHAR_MAP[] = "?123456789*";
+static const char CHAR_MAP[] = "?";
 
 // FUNCTIONS
 int randInt(int min, int max);
 void printGrid(int grid[GRID_HEIGHT][GRID_WIDTH]);
-int initGrid(int grid[GRID_HEIGHT][GRID_WIDTH]);
+void formatGrid(int grid[GRID_HEIGHT][GRID_WIDTH]);
+int addMines(int grid[GRID_HEIGHT][GRID_WIDTH]);
 
 // MAIN
 int main(){
-    int grid[GRID_HEIGHT][GRID_WIDTH] = {0};
-    if (initGrid(grid) == 1){
+    // VARIABLES
+    int gameGrid[GRID_HEIGHT][GRID_WIDTH] = {0};
+    int playerGrid[GRID_HEIGHT][GRID_WIDTH] = {0};
+
+    // GAME GRID INITIALIZATION
+    if (addMines(gameGrid) == 1){
         return 1;
     }
-    
-    printGrid(grid);
+    formatGrid(gameGrid);
+
+    // GAME LOOP
+    printGrid(playerGrid);
+
     return 0;
 }
 
-void printGrid(int grid[GRID_HEIGHT][GRID_WIDTH]){
-    // Top Border & Column Coordinates
-    printf("    ");
-    for (int col=0; col < GRID_WIDTH; col++){
-        printf("%3d", col + 1);
-    }
-    printf("\n    ");
-    for (int col=0; col < GRID_WIDTH; col++){
-        printf("___");
-    }
-    printf("\n");
-
-    // Grid
-    for (int row=0; row < GRID_HEIGHT; row++){
-        printf("%3d|", row + 1);  // Row Coordinates
-        for (int col=0; col < GRID_WIDTH; col++){
-            printf("%3c", CHAR_MAP[grid[row][col]]);
-        }
-        printf("\n");
-    }
-}
-
-int initGrid(int grid[GRID_HEIGHT][GRID_WIDTH]){
+int addMines(int grid[GRID_HEIGHT][GRID_WIDTH]){
     // ERROR HANDLING
     if (NUM_MINES > GRID_WIDTH * GRID_HEIGHT){
         printf("Error! number of mines greater than the number of tiles");
@@ -66,10 +52,13 @@ int initGrid(int grid[GRID_HEIGHT][GRID_WIDTH]){
             }
         }
     }
+}
 
+void formatGrid(int grid[GRID_HEIGHT][GRID_WIDTH]){
     // Calculating Cell Values
     for (int row = 0; row < GRID_HEIGHT; row++){
         for (int col = 0; col < GRID_WIDTH; col++){
+            // Checking if the Cell is a mine
             if (grid[row][col] != 10){
                 int counter = 0;
                 // Top Row
@@ -93,8 +82,28 @@ int initGrid(int grid[GRID_HEIGHT][GRID_WIDTH]){
             }
         }
     }
+}
 
-    return 0;
+void printGrid(int grid[GRID_HEIGHT][GRID_WIDTH]){
+    // Top Border & Column Coordinates
+    printf("    ");
+    for (int col=0; col < GRID_WIDTH; col++){
+        printf("%3d", col + 1);
+    }
+    printf("\n    ");
+    for (int col=0; col < GRID_WIDTH; col++){
+        printf("___");
+    }
+    printf("\n");
+
+    // Grid
+    for (int row=0; row < GRID_HEIGHT; row++){
+        printf("%3d|", row + 1);  // Row Coordinates
+        for (int col=0; col < GRID_WIDTH; col++){
+            printf("%3c", CHAR_MAP[grid[row][col]]);
+        }
+        printf("\n");
+    }
 }
 
 int randInt(int min, int max){
