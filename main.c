@@ -8,7 +8,7 @@
 #define GRID_HEIGHT 10
 #define GRID_WIDTH 10
 #define NUM_MINES 15
-static const char CHAR_MAP[] = "?";
+static const char CHAR_MAP[] = "?!";
 
 // FUNCTIONS
 int randInt(int min, int max);
@@ -19,6 +19,11 @@ int addMines(int grid[GRID_HEIGHT][GRID_WIDTH]);
 // MAIN
 int main(){
     // VARIABLES
+    bool running = true;
+    int cycleCounter = 0;
+    int row;
+    int col;
+    int inputType;
     int gameGrid[GRID_HEIGHT][GRID_WIDTH] = {0};
     int playerGrid[GRID_HEIGHT][GRID_WIDTH] = {0};
 
@@ -29,8 +34,31 @@ int main(){
     formatGrid(gameGrid);
 
     // GAME LOOP
-    printGrid(playerGrid);
+    while (running){
+        // Kill Switch
+        cycleCounter++;
+        if (cycleCounter > 100){
+            running = false;
+        }
 
+        printGrid(playerGrid);
+        printf("Pick a row: ");
+        scanf(" %d", &row);
+        printf("Pick a column: ");
+        scanf(" %d", &col);
+        printf("Press 1 to flag a mine \nPress 2 to clear a mine \nPress 3 to remove a flag \nInput:");
+        scanf(" %d", &inputType);
+        
+        if (inputType == 1){
+            playerGrid[row-1][col-1] = 1;
+        }
+        else if(inputType == 2){
+
+        }
+        else if(inputType == 3){
+
+        }
+    }
     return 0;
 }
 
