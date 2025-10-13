@@ -19,5 +19,7 @@
     * void formatGrid(grid)
         - formatGrid(grid) takes in gameGrid[GRID_HEIGHT][GRID_WIDTH] as an input and edits the grid cells directly to have the appropriate values.
 
-# Error Codes
+# Error Codes/Return values
+    - An Error code is a number that corresponds to a specific error.
+    0 - No errors occurred 
     1 - NUM_MINES is set to a value greater than the number of tiles in the grid. 
