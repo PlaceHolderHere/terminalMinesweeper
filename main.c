@@ -56,7 +56,12 @@ int main(){
 
         }
         else if(inputType == 3){
-
+            if (playerGrid[row-1][col-1] == 1){
+                playerGrid[row-1][col-1] = 0;
+            }
+            else{
+                printf("Error! That tile is not a mine\n");
+            }
         }
     }
     return 0;

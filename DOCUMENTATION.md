@@ -23,3 +23,7 @@
     - An Error code is a number that corresponds to a specific error.
     0 - No errors occurred 
     1 - NUM_MINES is set to a value greater than the number of tiles in the grid. 
+
+# CHARMAP
+    0 - Non-revealed Tile
+    1 - Flagged Mine
