@@ -8,7 +8,7 @@
 #define GRID_HEIGHT 10
 #define GRID_WIDTH 10
 #define NUM_MINES 15
-static const char CHAR_MAP[] = "?!";
+static const char CHAR_MAP[] = "?12345678!*";
 
 // FUNCTIONS
 int randInt(int min, int max);
@@ -49,15 +49,25 @@ int main(){
         printf("Press 1 to flag a mine \nPress 2 to clear a mine \nPress 3 to remove a flag \nInput:");
         scanf(" %d", &inputType);
         
+        // Set 1st col/row to 0th index
+        row -= 1;
+        col -= 1;
+
+        // Flag a Mine CHARMAP REFERENCE
         if (inputType == 1){
-            playerGrid[row-1][col-1] = 1;
+            playerGrid[row][col] = 9;
         }
+
+        // Revealing a Tile 
+        //CHARMAP REFERENCE
         else if(inputType == 2){
 
         }
+
+        // Removing a Flag CHARMAP REFERENCE
         else if(inputType == 3){
-            if (playerGrid[row-1][col-1] == 1){
-                playerGrid[row-1][col-1] = 0;
+            if (playerGrid[row][col] == 9){
+                playerGrid[row][col] = 0;
             }
             else{
                 printf("Error! That tile is not a mine\n");
@@ -79,6 +89,7 @@ int addMines(int grid[GRID_HEIGHT][GRID_WIDTH]){
         while (!mine_found){
             int row = randInt(0, GRID_HEIGHT - 1);
             int col = randInt(0, GRID_WIDTH - 1);
+            //  CHARMAP REFERENCE
             if (grid[row][col] != 10){
                 grid[row][col] = 10;
                 mine_found = true;
@@ -91,21 +102,21 @@ void formatGrid(int grid[GRID_HEIGHT][GRID_WIDTH]){
     // Calculating Cell Values
     for (int row = 0; row < GRID_HEIGHT; row++){
         for (int col = 0; col < GRID_WIDTH; col++){
-            // Checking if the Cell is a mine
+            // Checking if the Cell is a mine CHARMAP REFERENCE
             if (grid[row][col] != 10){
                 int counter = 0;
-                // Top Row
+                // Top Row CHARMAP REFERENCE
                 if (row > 0){
                     if (grid[row - 1][col] == 10) {counter++;} // Top Cell
                     if (col > 0) {if (grid[row - 1][col - 1] == 10) {counter++;}} // Top Left
                     if (col < GRID_WIDTH - 1) {if (grid[row - 1][col + 1] == 10) {counter++;}} // Top Right
                 }  
                 
-                // Middle Row
+                // Middle Row CHARMAP REFERENCE
                 if (col > 0) {if (grid[row][col - 1] == 10) {counter++;}} // Middle Left
                 if (col < GRID_WIDTH - 1) {if (grid[row][col + 1]){counter++;}} // Middle Right
                 
-                // Bottom Row
+                // Bottom Row CHARMAP REFERENCE
                 if (row < GRID_HEIGHT - 1){
                     if (grid[row + 1][col] == 10) {counter++;} // Bottom Cell
                     if (col > 0) {if (grid[row + 1][col - 1] == 10) {counter++;}} // Bottom Left

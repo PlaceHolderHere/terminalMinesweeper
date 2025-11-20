@@ -25,5 +25,15 @@
     1 - NUM_MINES is set to a value greater than the number of tiles in the grid. 
 
 # CHARMAP
+    - When referencing the charmap, a comment should be present to indicate so (e.g. //CHARMAP REFERENCE)
     0 - Non-revealed Tile
-    1 - Flagged Mine
+    1 - Tile neighbouring 1 mine
+    2 - Tile neighbouring 2 mine
+    3 - Tile neighbouring 3 mine
+    4 - Tile neighbouring 4 mine
+    5 - Tile neighbouring 5 mine
+    6 - Tile neighbouring 6 mine
+    7 - Tile neighbouring 7 mine
+    8 - Tile neighbouring 8 mine
+    9 - A flagged tile
+    10 - A mine
