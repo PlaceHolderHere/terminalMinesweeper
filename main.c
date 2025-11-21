@@ -46,7 +46,7 @@ int main(){
         scanf(" %d", &row);
         printf("Pick a column: ");
         scanf(" %d", &col);
-        printf("Press 1 to flag a mine \nPress 2 to clear a mine \nPress 3 to remove a flag \nInput:");
+        printf("Press 1 to flag a mine \nPress 2 to reveal a tile \nPress 3 to remove a flag \nInput:");
         scanf(" %d", &inputType);
         
         // Set 1st col/row to 0th index
@@ -60,7 +60,20 @@ int main(){
 
         // Revealing a Tile CHARMAP REFERENCE
         else if(inputType == 2){
-
+            // Checking if tile is a mine CHARMAP REFERENCE
+            if (gameGrid[row][col] == 10){
+                printGrid(gameGrid);
+                printf("RIP, you hit a mine! Game Over\n");
+                running = false;
+            }
+            // Checking if a tile is a blank CHARMAP REFERENCE
+            else if(gameGrid[row][col] == 11){
+                // Blank Tile Clearing Function
+            }
+            // Checking if a tile is a number 
+            else{
+                playerGrid[row][col] = gameGrid[row][col];
+            }
         }
 
         // Removing a Flag CHARMAP REFERENCE
