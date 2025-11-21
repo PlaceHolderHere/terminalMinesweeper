@@ -8,7 +8,7 @@
 #define GRID_HEIGHT 10
 #define GRID_WIDTH 10
 #define NUM_MINES 15
-static const char CHAR_MAP[] = "?12345678!*";
+static const char CHAR_MAP[] = "?12345678!* ";
 
 // FUNCTIONS
 int randInt(int min, int max);
@@ -24,7 +24,7 @@ int main(){
     int row;
     int col;
     int inputType;
-    int gameGrid[GRID_HEIGHT][GRID_WIDTH] = {0};
+    int gameGrid[GRID_HEIGHT][GRID_WIDTH] = {11};
     int playerGrid[GRID_HEIGHT][GRID_WIDTH] = {0};
 
     // GAME GRID INITIALIZATION
@@ -58,8 +58,7 @@ int main(){
             playerGrid[row][col] = 9;
         }
 
-        // Revealing a Tile 
-        //CHARMAP REFERENCE
+        // Revealing a Tile CHARMAP REFERENCE
         else if(inputType == 2){
 
         }
@@ -122,7 +121,7 @@ void formatGrid(int grid[GRID_HEIGHT][GRID_WIDTH]){
                     if (col > 0) {if (grid[row + 1][col - 1] == 10) {counter++;}} // Bottom Left
                     if (col < GRID_WIDTH - 1) {if (grid[row + 1][col + 1] == 10) {counter++;}} // Bottom Right
                 }
-                grid[row][col] = counter;
+                grid[row][col] = (counter > 0) ? counter : 11;
             }
         }
     }

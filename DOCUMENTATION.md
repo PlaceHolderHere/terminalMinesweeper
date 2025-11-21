@@ -37,3 +37,4 @@
     8 - Tile neighbouring 8 mine
     9 - A flagged tile
     10 - A mine
+    11 - A blank tile
