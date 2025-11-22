@@ -15,6 +15,7 @@ int randInt(int min, int max);
 void printGrid(int grid[GRID_HEIGHT][GRID_WIDTH]);
 void formatGrid(int grid[GRID_HEIGHT][GRID_WIDTH]);
 int addMines(int grid[GRID_HEIGHT][GRID_WIDTH]);
+void revealBlankTiles(int inputRow, int inputCol, int gameGrid[GRID_HEIGHT][GRID_WIDTH], int playerGrid[GRID_HEIGHT][GRID_WIDTH]);
 
 // MAIN
 int main(){
@@ -33,6 +34,7 @@ int main(){
     }
     formatGrid(gameGrid);
 
+    printGrid(gameGrid); // TESTING
     // GAME LOOP
     while (running){
         // Kill Switch
@@ -68,7 +70,7 @@ int main(){
             }
             // Checking if a tile is a blank CHARMAP REFERENCE
             else if(gameGrid[row][col] == 11){
-                // Blank Tile Clearing Function
+                revealBlankTiles(row, col, gameGrid, playerGrid);
             }
             // Checking if a tile is a number 
             else{
@@ -87,6 +89,86 @@ int main(){
         }
     }
     return 0;
+}
+
+void revealBlankTiles(int inputRow, int inputCol, int gameGrid[GRID_HEIGHT][GRID_WIDTH], int playerGrid[GRID_HEIGHT][GRID_WIDTH]){
+    // Initializing Variables
+    int queueStartIndex = 0;
+    int queueEndIndex = 1;
+    int queueSize = GRID_HEIGHT * GRID_WIDTH;
+    int queueLength = 1;
+    int queue[queueSize][2];
+    queue[0][0] = inputRow;
+    queue[0][1] = inputCol;
+    
+    while (queueLength > 0){
+        // Revealing the first tile in Queue
+        int row = queue[queueStartIndex][0];
+        int col = queue[queueStartIndex][1];
+
+        // checking if the tile is a blank and unrevealed CHARMAP REFERENCE
+        if (playerGrid[row][col] == 0){
+            playerGrid[row][col] = gameGrid[row][col];
+            if (gameGrid[row][col] == 11){
+                // Top Row
+                if (row > 0){
+                    queue[queueEndIndex][0] = row - 1;
+                    queue[queueEndIndex][1] = col;
+                    queueEndIndex = (queueEndIndex > queueSize) ? 0 : queueEndIndex + 1;
+                    queueLength++;
+
+                    if (col > 0){
+                        queue[queueEndIndex][0] = row - 1;
+                        queue[queueEndIndex][1] = col - 1;
+                        queueEndIndex = (queueEndIndex > queueSize) ? 0 : queueEndIndex + 1;
+                        queueLength++;
+                    }
+
+                    if (col < GRID_WIDTH){
+                        queue[queueEndIndex][0] = row - 1;
+                        queue[queueEndIndex][1] = col + 1;
+                        queueEndIndex = (queueEndIndex > queueSize) ? 0 : queueEndIndex + 1;
+                        queueLength++;
+                    }
+                }
+
+                // Middle Row
+                if (col > 0){
+                    queue[queueEndIndex][0] = row;
+                    queue[queueEndIndex][1] = col - 1;
+                    queueEndIndex = (queueEndIndex > queueSize) ? 0 : queueEndIndex + 1;
+                    queueLength++;
+                }
+
+                if (col < GRID_WIDTH){
+                    queue[queueEndIndex][0] = row;
+                    queue[queueEndIndex][1] = col + 1;
+                    queueEndIndex = (queueEndIndex > queueSize) ? 0 : queueEndIndex + 1;
+                    queueLength++;
+                }
+
+                // Bottom Row
+                if (row < GRID_HEIGHT){
+                    if (col > 0){
+                        queue[queueEndIndex][0] = row + 1;
+                        queue[queueEndIndex][1] = col - 1;
+                        queueEndIndex = (queueEndIndex > queueSize) ? 0 : queueEndIndex + 1;
+                        queueLength++;
+                    }
+
+                    if (col < GRID_WIDTH){
+                        queue[queueEndIndex][0] = row + 1;
+                        queue[queueEndIndex][1] = col + 1;
+                        queueEndIndex = (queueEndIndex > queueSize) ? 0 : queueEndIndex + 1;
+                        queueLength++;
+                    }
+                }
+            }   
+        }
+        // Moving to the next index of the queue
+        queueStartIndex = (queueStartIndex > queueSize) ? 0 : queueStartIndex + 1;
+        queueLength -= 1;
+    } 
 }
 
 int addMines(int grid[GRID_HEIGHT][GRID_WIDTH]){
