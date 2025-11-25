@@ -14,7 +14,7 @@ static const char CHAR_MAP[] = "?12345678!* ";
 int randInt(int min, int max);
 void printGrid(int grid[GRID_HEIGHT][GRID_WIDTH]);
 void formatGrid(int grid[GRID_HEIGHT][GRID_WIDTH]);
-int addMines(int grid[GRID_HEIGHT][GRID_WIDTH]);
+int addMines(int grid[GRID_HEIGHT][GRID_WIDTH], int mineCoordinates[NUM_MINES][2]);
 void revealBlankTiles(int inputRow, int inputCol, int gameGrid[GRID_HEIGHT][GRID_WIDTH], int playerGrid[GRID_HEIGHT][GRID_WIDTH]);
 
 // MAIN
@@ -27,14 +27,14 @@ int main(){
     int inputType;
     int gameGrid[GRID_HEIGHT][GRID_WIDTH] = {11};
     int playerGrid[GRID_HEIGHT][GRID_WIDTH] = {0};
+    int mineCoordinates[NUM_MINES][2];
 
     // GAME GRID INITIALIZATION
-    if (addMines(gameGrid) == 1){
+    if (addMines(gameGrid, mineCoordinates) == 1){
         return 1;
     }
     formatGrid(gameGrid);
 
-    printGrid(gameGrid); // TESTING
     // GAME LOOP
     while (running){
         // Kill Switch
@@ -171,7 +171,7 @@ void revealBlankTiles(int inputRow, int inputCol, int gameGrid[GRID_HEIGHT][GRID
     } 
 }
 
-int addMines(int grid[GRID_HEIGHT][GRID_WIDTH]){
+int addMines(int grid[GRID_HEIGHT][GRID_WIDTH], int mineCoordinates[NUM_MINES][2]){
     // ERROR HANDLING
     if (NUM_MINES > GRID_WIDTH * GRID_HEIGHT){
         printf("Error! number of mines greater than the number of tiles");
@@ -186,6 +186,8 @@ int addMines(int grid[GRID_HEIGHT][GRID_WIDTH]){
             //  CHARMAP REFERENCE
             if (grid[row][col] != 10){
                 grid[row][col] = 10;
+                mineCoordinates[mine][0] = row;
+                mineCoordinates[mine][1] = col;
                 mine_found = true;
             }
         }

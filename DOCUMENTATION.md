@@ -21,10 +21,10 @@
         - printGrid(grid) refers to CHARMAP for what characters to use for each tile type.
 
     * int addMines(gameGrid)
-        - addMines() takes in gameGrid[GRID_HEIGHT][GRID_WIDTH] as an input and edits the grid directly to have a set number of mines.
+        - addMines() takes in gameGrid[GRID_HEIGHT][GRID_WIDTH] and mineCoordinates[][] as inputs and edits the grid directly to have a set number of mines. Additionally, for every mine added to the grid, the coordinates are added to mineCoordinates[][] as an ordered pair (row, col).
         * RETURN VALUES
             - a return value of 0 means that NO problems were encountered.
-            - a return value of 1 means that an ERROR has occured .
+            - a return value of 1 means that an ERROR has occured.
 
     * void formatGrid(grid)
         - formatGrid(grid) takes in gameGrid[GRID_HEIGHT][GRID_WIDTH] as an input and edits the grid cells directly to have the appropriate values.
