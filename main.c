@@ -16,7 +16,6 @@ void printGrid(int grid[GRID_HEIGHT][GRID_WIDTH]);
 void formatGrid(int grid[GRID_HEIGHT][GRID_WIDTH]);
 int addMines(int grid[GRID_HEIGHT][GRID_WIDTH], int mineCoordinates[NUM_MINES][2]);
 void revealBlankTiles(int inputRow, int inputCol, int gameGrid[GRID_HEIGHT][GRID_WIDTH], int playerGrid[GRID_HEIGHT][GRID_WIDTH]);
-bool isCoordinateInList(int row, int col, int numOfMinesInList, int mineCoordinates[NUM_MINES][2]);
 
 // MAIN
 int main(){
