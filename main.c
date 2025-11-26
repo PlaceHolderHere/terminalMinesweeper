@@ -16,6 +16,7 @@ void printGrid(int grid[GRID_HEIGHT][GRID_WIDTH]);
 void formatGrid(int grid[GRID_HEIGHT][GRID_WIDTH]);
 int addMines(int grid[GRID_HEIGHT][GRID_WIDTH], int mineCoordinates[NUM_MINES][2]);
 void revealBlankTiles(int inputRow, int inputCol, int gameGrid[GRID_HEIGHT][GRID_WIDTH], int playerGrid[GRID_HEIGHT][GRID_WIDTH]);
+bool didPlayerWin(int mineCoordinates[NUM_MINES][2], int playerGrid[GRID_HEIGHT][GRID_WIDTH]);
 
 // MAIN
 int main(){
@@ -34,13 +35,21 @@ int main(){
         return 1;
     }
     formatGrid(gameGrid);
-
+    printGrid(gameGrid);
     // GAME LOOP
     while (running){
         // Kill Switch
         cycleCounter++;
         if (cycleCounter > 100){
             running = false;
+        }
+
+        // Checking if player has won
+        if (didPlayerWin(mineCoordinates, playerGrid)){
+            printf("Congratulations! You win!\n");
+            printGrid(gameGrid);
+            running = false;
+            return 0;
         }
 
         printGrid(playerGrid);
@@ -89,6 +98,16 @@ int main(){
         }
     }
     return 0;
+}
+
+bool didPlayerWin(int mineCoordinates[NUM_MINES][2], int playerGrid[GRID_HEIGHT][GRID_WIDTH]){
+    for (int i = 0; i < NUM_MINES; i++){
+        // CHARMAP REFERENCE
+        if (playerGrid[mineCoordinates[i][0]][mineCoordinates[i][1]] != 9){
+            return false;
+        }
+    }
+    return true;
 }
 
 void revealBlankTiles(int inputRow, int inputCol, int gameGrid[GRID_HEIGHT][GRID_WIDTH], int playerGrid[GRID_HEIGHT][GRID_WIDTH]){
