@@ -7,7 +7,7 @@
 // CONSTANTS
 #define GRID_HEIGHT 10
 #define GRID_WIDTH 10
-#define NUM_MINES 95
+#define NUM_MINES 15
 static const char CHAR_MAP[] = "?12345678!* ";
 
 // FUNCTIONS
@@ -35,7 +35,7 @@ int main(){
         return 1;
     }
     formatGrid(gameGrid);
-    printGrid(gameGrid);
+
     // GAME LOOP
     while (running){
         // Kill Switch
