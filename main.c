@@ -7,7 +7,7 @@
 // CONSTANTS
 #define GRID_HEIGHT 10
 #define GRID_WIDTH 10
-#define NUM_MINES 15
+#define NUM_MINES 95
 static const char CHAR_MAP[] = "?12345678!* ";
 
 // FUNCTIONS
@@ -16,6 +16,7 @@ void printGrid(int grid[GRID_HEIGHT][GRID_WIDTH]);
 void formatGrid(int grid[GRID_HEIGHT][GRID_WIDTH]);
 int addMines(int grid[GRID_HEIGHT][GRID_WIDTH], int mineCoordinates[NUM_MINES][2]);
 void revealBlankTiles(int inputRow, int inputCol, int gameGrid[GRID_HEIGHT][GRID_WIDTH], int playerGrid[GRID_HEIGHT][GRID_WIDTH]);
+bool isCoordinateInList(int row, int col, int numOfMinesInList, int mineCoordinates[NUM_MINES][2]);
 
 // MAIN
 int main(){
@@ -178,7 +179,7 @@ int addMines(int grid[GRID_HEIGHT][GRID_WIDTH], int mineCoordinates[NUM_MINES][2
         return 1;
     }
     // Adding Mines
-    for (int mine=0; mine < NUM_MINES; mine++){
+    for (int mineIndex=0; mineIndex < NUM_MINES; mineIndex++){
         bool mine_found = false;
         while (!mine_found){
             int row = randInt(0, GRID_HEIGHT - 1);
@@ -186,8 +187,8 @@ int addMines(int grid[GRID_HEIGHT][GRID_WIDTH], int mineCoordinates[NUM_MINES][2
             //  CHARMAP REFERENCE
             if (grid[row][col] != 10){
                 grid[row][col] = 10;
-                mineCoordinates[mine][0] = row;
-                mineCoordinates[mine][1] = col;
+                mineCoordinates[mineIndex][0] = row;
+                mineCoordinates[mineIndex][1] = col;
                 mine_found = true;
             }
         }
