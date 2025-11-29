@@ -12,7 +12,7 @@ static const char CHAR_MAP[] = "?12345678!* ";
 
 // FUNCTIONS
 int randInt(int min, int max);
-void printGrid(int grid[GRID_HEIGHT][GRID_WIDTH]);
+void printGrid(int grid[GRID_HEIGHT][GRID_WIDTH], int numAvailableFlags);
 void formatGrid(int grid[GRID_HEIGHT][GRID_WIDTH]);
 int addMines(int grid[GRID_HEIGHT][GRID_WIDTH], int mineCoordinates[NUM_MINES][2]);
 void revealBlankTiles(int inputRow, int inputCol, int gameGrid[GRID_HEIGHT][GRID_WIDTH], int playerGrid[GRID_HEIGHT][GRID_WIDTH]);
@@ -26,6 +26,7 @@ int main(){
     int row;
     int col;
     int inputType;
+    int numAvailableFlags = NUM_MINES;
     int gameGrid[GRID_HEIGHT][GRID_WIDTH] = {11};
     int playerGrid[GRID_HEIGHT][GRID_WIDTH] = {0};
     int mineCoordinates[NUM_MINES][2];
@@ -47,12 +48,12 @@ int main(){
         // Checking if player has won
         if (didPlayerWin(mineCoordinates, playerGrid)){
             printf("Congratulations! You win!\n");
-            printGrid(gameGrid);
+            printGrid(gameGrid, numAvailableFlags);
             running = false;
             return 0;
         }
 
-        printGrid(playerGrid);
+        printGrid(playerGrid, numAvailableFlags);
         printf("Pick a row: ");
         scanf(" %d", &row);
         printf("Pick a column: ");
@@ -66,14 +67,20 @@ int main(){
 
         // Flag a Mine CHARMAP REFERENCE
         if (inputType == 1){
-            playerGrid[row][col] = 9;
+            if (numAvailableFlags > 0){
+                playerGrid[row][col] = 9;
+                numAvailableFlags -= 1;
+            }
+            else{
+                printf("Error! You're trying to place more flags than there are mines.\n");
+            }
         }
 
         // Revealing a Tile CHARMAP REFERENCE
         else if(inputType == 2){
             // Checking if tile is a mine CHARMAP REFERENCE
             if (gameGrid[row][col] == 10){
-                printGrid(gameGrid);
+                printGrid(gameGrid, numAvailableFlags);
                 printf("RIP, you hit a mine! Game Over\n");
                 running = false;
             }
@@ -91,6 +98,7 @@ int main(){
         else if(inputType == 3){
             if (playerGrid[row][col] == 9){
                 playerGrid[row][col] = 0;
+                numAvailableFlags += 1;
             }
             else{
                 printf("Error! That tile is not a mine\n");
@@ -243,7 +251,11 @@ void formatGrid(int grid[GRID_HEIGHT][GRID_WIDTH]){
     }
 }
 
-void printGrid(int grid[GRID_HEIGHT][GRID_WIDTH]){
+void printGrid(int grid[GRID_HEIGHT][GRID_WIDTH], int numAvailableFlags){
+    printf("\n============================================================================\n\n");
+    // Available Flags:
+    printf("Flags Remaining: %d \n", numAvailableFlags);
+    
     // Top Border & Column Coordinates
     printf("    ");
     for (int col=0; col < GRID_WIDTH; col++){
