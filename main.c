@@ -139,11 +139,13 @@ void revealBlankTiles(int inputRow, int inputCol, int gameGrid[GRID_HEIGHT][GRID
             if (gameGrid[row][col] == 11){
                 // Top Row
                 if (row > 0){
+                    // Top Middle
                     queue[queueEndIndex][0] = row - 1;
                     queue[queueEndIndex][1] = col;
                     queueEndIndex = (queueEndIndex > queueSize) ? 0 : queueEndIndex + 1;
                     queueLength++;
 
+                    // Top Left
                     if (col > 0){
                         queue[queueEndIndex][0] = row - 1;
                         queue[queueEndIndex][1] = col - 1;
@@ -151,7 +153,8 @@ void revealBlankTiles(int inputRow, int inputCol, int gameGrid[GRID_HEIGHT][GRID
                         queueLength++;
                     }
 
-                    if (col < GRID_WIDTH){
+                    // Top Right
+                    if (col < GRID_WIDTH - 1){
                         queue[queueEndIndex][0] = row - 1;
                         queue[queueEndIndex][1] = col + 1;
                         queueEndIndex = (queueEndIndex > queueSize) ? 0 : queueEndIndex + 1;
@@ -159,7 +162,7 @@ void revealBlankTiles(int inputRow, int inputCol, int gameGrid[GRID_HEIGHT][GRID
                     }
                 }
 
-                // Middle Row
+                // Middle Left
                 if (col > 0){
                     queue[queueEndIndex][0] = row;
                     queue[queueEndIndex][1] = col - 1;
@@ -167,7 +170,8 @@ void revealBlankTiles(int inputRow, int inputCol, int gameGrid[GRID_HEIGHT][GRID
                     queueLength++;
                 }
 
-                if (col < GRID_WIDTH){
+                // Middle Right
+                if (col < GRID_WIDTH - 1){
                     queue[queueEndIndex][0] = row;
                     queue[queueEndIndex][1] = col + 1;
                     queueEndIndex = (queueEndIndex > queueSize) ? 0 : queueEndIndex + 1;
@@ -175,12 +179,14 @@ void revealBlankTiles(int inputRow, int inputCol, int gameGrid[GRID_HEIGHT][GRID
                 }
 
                 // Bottom Row
-                if (row < GRID_HEIGHT){
+                if (row < GRID_HEIGHT - 1){
+                    // Bottom Middle
                     queue[queueEndIndex][0] = row + 1;
                     queue[queueEndIndex][1] = col;
                     queueEndIndex = (queueEndIndex > queueSize) ? 0 : queueEndIndex + 1;
                     queueLength++;
 
+                    // Bottom Left
                     if (col > 0){
                         queue[queueEndIndex][0] = row + 1;
                         queue[queueEndIndex][1] = col - 1;
@@ -188,7 +194,8 @@ void revealBlankTiles(int inputRow, int inputCol, int gameGrid[GRID_HEIGHT][GRID
                         queueLength++;
                     }
 
-                    if (col < GRID_WIDTH){
+                    // Bottom Right
+                    if (col < GRID_WIDTH - 1){
                         queue[queueEndIndex][0] = row + 1;
                         queue[queueEndIndex][1] = col + 1;
                         queueEndIndex = (queueEndIndex > queueSize) ? 0 : queueEndIndex + 1;
