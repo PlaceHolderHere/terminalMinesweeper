@@ -176,6 +176,11 @@ void revealBlankTiles(int inputRow, int inputCol, int gameGrid[GRID_HEIGHT][GRID
 
                 // Bottom Row
                 if (row < GRID_HEIGHT){
+                    queue[queueEndIndex][0] = row + 1;
+                    queue[queueEndIndex][1] = col;
+                    queueEndIndex = (queueEndIndex > queueSize) ? 0 : queueEndIndex + 1;
+                    queueLength++;
+
                     if (col > 0){
                         queue[queueEndIndex][0] = row + 1;
                         queue[queueEndIndex][1] = col - 1;
