@@ -133,8 +133,8 @@ void revealBlankTiles(int inputRow, int inputCol, int gameGrid[GRID_HEIGHT][GRID
         int row = queue[queueStartIndex][0];
         int col = queue[queueStartIndex][1];
 
-        // checking if the tile is a blank and unrevealed CHARMAP REFERENCE
-        if (playerGrid[row][col] == 0){
+        // checking if the tile is unrevealed and not a mine; CHARMAP REFERENCE
+        if (playerGrid[row][col] == 0 && gameGrid[row][col] != 10){
             playerGrid[row][col] = gameGrid[row][col];
             if (gameGrid[row][col] == 11){
                 // Top Row
