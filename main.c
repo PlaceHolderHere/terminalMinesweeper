@@ -24,8 +24,11 @@ int main(){
     bool running = true;
     int cycleCounter = 0;
     int row;
+    bool rowFound;
     int col;
+    bool colFound;
     int inputType;
+    bool inputFound;
     int numAvailableFlags = NUM_MINES;
     int gameGrid[GRID_HEIGHT][GRID_WIDTH] = {11};
     int playerGrid[GRID_HEIGHT][GRID_WIDTH] = {0};
@@ -54,12 +57,50 @@ int main(){
         }
 
         printGrid(playerGrid, numAvailableFlags);
-        printf("Pick a row: ");
-        scanf(" %d", &row);
-        printf("Pick a column: ");
-        scanf(" %d", &col);
-        printf("Press 1 to flag a mine \nPress 2 to reveal a tile \nPress 3 to remove a flag \nInput:");
-        scanf(" %d", &inputType);
+
+        // Input Processing
+        // Note: scanf truncates any input floats
+        rowFound = false;
+        while (!rowFound){
+            printf("Pick a row: ");
+            if (scanf(" %d", &row) != 1){
+                printf("Error! Please input a whole number\n");
+            }
+            else if(row <= 0 || row > GRID_HEIGHT){
+                printf("Error! Please input a row from 1-%d\n", GRID_HEIGHT);
+            }
+            else{rowFound = true;}
+
+            while ((row = getchar()) != '\n' && row != EOF) { }  // Clearing scanf's input buffer
+        }
+        
+        colFound = false;
+        while (!colFound){
+            printf("Pick a column: ");
+            if (scanf(" %d", &col) != 1){
+                printf("Error! Please input a whole number\n");
+            }
+            else if(col <= 0 || col > GRID_HEIGHT){
+                printf("Error! Please input a column from 1-%d\n", GRID_HEIGHT);
+            }
+            else{colFound = true;}
+
+            while ((col = getchar()) != '\n' && col != EOF) { }  // Clearing scanf's input buffer
+        }
+        
+        inputFound = false;
+        while (!inputFound){
+            printf("Press 1 to flag a mine \nPress 2 to reveal a tile \nPress 3 to remove a flag \nInput:");
+            if (scanf(" %d", &inputType) != 1){
+                printf("Error! Please input a whole number\n");
+            }
+            else if(inputType <= 0 || inputType > GRID_HEIGHT){
+                printf("Error! Please input a column from 1-3\n", GRID_HEIGHT);
+            }
+            else{inputFound = true;}
+
+            while ((inputType = getchar()) != '\n' && inputType != EOF) { }  // Clearing scanf's input buffer
+        }
         
         // Set 1st col/row to 0th index
         row -= 1;
