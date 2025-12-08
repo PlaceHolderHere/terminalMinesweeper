@@ -22,7 +22,6 @@ bool didPlayerWin(int mineCoordinates[NUM_MINES][2], int playerGrid[GRID_HEIGHT]
 int main(){
     // VARIABLES
     bool running = true;
-    int cycleCounter = 0;
     int row;
     bool rowFound;
     int col;
@@ -42,12 +41,6 @@ int main(){
 
     // GAME LOOP
     while (running){
-        // Kill Switch
-        cycleCounter++;
-        if (cycleCounter > 100){
-            running = false;
-        }
-
         // Checking if player has won
         if (didPlayerWin(mineCoordinates, playerGrid)){
             printf("Congratulations! You win!\n");
@@ -98,7 +91,7 @@ int main(){
             }
             else{inputFound = true;}
         }
-        
+
         // Set 1st col/row to 0th index
         row -= 1;
         col -= 1;
